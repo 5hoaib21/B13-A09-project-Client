@@ -11,13 +11,15 @@ import {
 import Link from "next/link";
 import { Button } from "@heroui/react";
 import { EditRoom } from "@/components/ui/EditRoom";
+import { EditRoomModal } from "@/components/ui/EditRoomModal";
+import { DeleteAlert } from "@/components/ui/DeleteAlert";
 
 const RoomDetailsPage = async ({ params }) => {
   const { id } = await params;
 
   const res = await fetch(`http://localhost:8008/room/${id}`);
   const room = await res.json();
-  console.log(room);
+  // console.log(room);
   return (
     <div>
       <div className="min-h-screen bg-[#07120F] text-white">
@@ -115,19 +117,14 @@ const RoomDetailsPage = async ({ params }) => {
                   <Calendar size={18} />
                   Book Now
                 </button>
-                <div className="my-3 flex justify-around ">
-                
-                <EditRoom />
-                  <Button className={"text-sm font-bold"} variant="danger-soft">
-                    {" "}
-                    <Delete />
-                    Delete
-                  </Button>
+                <div className=" flex  items-center">
+                  <EditRoomModal room={room} id={room?._id} />
+                  <DeleteAlert room={room} id={room?._id} />
                 </div>
               </div>
 
               {/* Host Card */}
-              <div className="rounded-3xl border border-white/10 bg-[#0B1714] p-6">
+              <div className="rounded-3xl border border-white/10 bg-[#0B1714] p-6 mt-5">
                 <p className="text-xs tracking-widest uppercase text-gray-500 mb-5">
                   Listed By
                 </p>
