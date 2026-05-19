@@ -1,17 +1,146 @@
-import React from "react";
+// 'use client'
+import Image from "next/image";
+import { Calendar, Users, Layers3, DollarSign } from "lucide-react";
+import Link from "next/link";
 
 const RoomDetailsPage = async ({ params }) => {
   const { id } = await params;
 
 
   const res = await fetch(`http://localhost:8008/room/${id}`)
-  const roomDetails = await res.json()
-  console.log(roomDetails);
+  const room = await res.json()
+  console.log(room);
   return (
     <div>
-      <div>
-        <h2> this is room detail page</h2>
+     <div className="min-h-screen bg-[#07120F] text-white">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 py-10">
+        {/* Back */}
+      <Link href={'/rooms'}>  <button className="mb-8 flex items-center gap-2 text-sm text-gray-300 cursor-pointer hover:text-white transition">
+          ← Back
+        </button></Link>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* LEFT */}
+          <div className="lg:col-span-2">
+            {/* Cover */}
+            <div className="overflow-hidden rounded-3xl border border-white/10">
+              <Image
+                src={room?.imageUrl}
+                alt={room?.room_name}
+                width={1400}
+                height={800}
+                className="w-full h-[520px] object-cover"
+              />
+            </div>
+
+            {/* Content */}
+            <div className="mt-8">
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <h1 className="text-5xl font-serif font-bold">
+                  {room?.room_name}
+                </h1>
+
+                <div className="bg-green-900/30 text-green-400 border border-green-800 px-4 py-2 rounded-full text-sm">
+                  {room?.bookings} bookings
+                </div>
+              </div>
+
+              <p className="mt-2 text-gray-400">
+                Listed {room.listedDate}
+              </p>
+
+              <p className="mt-8 text-lg text-gray-200 leading-relaxed">
+                {room?.description}
+              </p>
+
+              {/* Amenities */}
+              <div className="mt-10">
+                <h3 className="text-2xl font-serif font-semibold mb-5">
+                  Amenities
+                </h3>
+
+                <div className="flex flex-wrap gap-3">
+                  {room?.amenities.map((item) => (
+                    <span
+                      key={item}
+                      className="px-4 py-2 rounded-full bg-white/10 border border-white/10 text-sm"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT SIDEBAR */}
+          <div className="room-y-6">
+            {/* Booking Card */}
+            <div className="sticky top-6 rounded-3xl border border-white/10 bg-[#0B1714] p-7">
+              <div className="flex justify-between items-start">
+                <h2 className="text-5xl font-bold text-[#D9A441]">
+                  ${room.rent}
+                </h2>
+
+                <span className="text-gray-400">
+                  per hour
+                </span>
+              </div>
+
+              <div className="mt-8 room-y-4 text-gray-200">
+                <div className="flex items-center gap-3">
+                  <Layers3 size={18} />
+                  <span>{room.floor}</span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Users size={18} />
+                  <span>Up to {room?.capacity} person</span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <DollarSign size={18} />
+                  <span>{room?.bookings} total bookings</span>
+                </div>
+              </div>
+
+              <button className="mt-8 w-full bg-[#D9A441] text-black font-medium py-4 rounded-xl hover:opacity-90 transition flex justify-center items-center gap-2">
+                <Calendar size={18} />
+                Book Now
+              </button>
+            </div>
+
+            {/* Host Card */}
+            <div className="rounded-3xl border border-white/10 bg-[#0B1714] p-6">
+              <p className="text-xs tracking-widest uppercase text-gray-500 mb-5">
+                Listed By
+              </p>
+
+              <div className="flex items-center gap-4">
+                <Image
+                  src={room?.imageUrl}
+                  alt={room?.room_name}
+                  width={60}
+                  height={60}
+                  className="rounded-full object-cover"
+                />
+
+                <div>
+                  <h4 className="font-semibold text-lg">
+                  
+Maya Chen
+                  </h4>
+
+                  <p className="text-sm text-gray-400">
+                  maya@studynook.demo
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
     </div>
   );
 };
