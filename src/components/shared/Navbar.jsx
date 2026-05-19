@@ -42,6 +42,9 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">
           <NavLink href={"/"}>Home</NavLink>
           <NavLink href={"/rooms"}>Rooms</NavLink>
+          <NavLink href={"/add-room"}>Add Room</NavLink>
+          <NavLink href={"/my-listings"}>My Listings</NavLink>
+          <NavLink href={"/my-bookings"}>My Bookings</NavLink>
         </ul>
       </div>
       <div className="navbar-end gap-3 hidden lg:flex">
