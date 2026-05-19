@@ -1,99 +1,130 @@
-import {
-  Select,
-  FieldError,
-  Input,
-  Label,
-  TextField,
-  ListBox,
-  Button,
-  TextArea,
-} from "@heroui/react";
-
+"use client";
 const AddRoomPage = () => {
+
+const onSubmit = async (e) => {
+e.preventDefault()
+const formData = new FormData(e.currentTarget)
+const newRoomData = Object.fromEntries(formData.entries())
+
+const res = await fetch('http://localhost:8008/room', {
+  method: "POST",
+  headers: {
+    'content-type': "application/json"
+  },
+  body: JSON.stringify(newRoomData)
+})
+const data = await res.json()
+console.log(data);
+
+
+}
+
+
   return (
-    <div>
-      <h1>Add a New Room</h1>
-      <p>
-        Share your study room with others. You can edit or remove it any time.
-      </p>
-      <form className="max-w-4xl mx-auto p-8 rounded-3xl border border-[#1f3a33] bg-[#071411] text-white shadow-2xl space-y-6">
+    <div className="max-w-4xl mx-auto my-10">
+      <div className="space-y-2 mb-5">
+        {" "}
+        <h1 className="text-4xl font-bold">Add a New Room</h1>
+        <p className="text-sm text-zinc-400">
+          Share your study room with others. You can edit or remove it any time.
+        </p>
+      </div>
+      <form
+      onSubmit={onSubmit}
+       className="w-full max-w-5xl rounded-[28px] border border-[#1f3a33] bg-[#071411] p-4 sm:p-6 md:p-8 lg:p-10 text-white shadow-2xl space-y-6">
         {/* Room Name */}
         <div>
-          <label className="block mb-2 font-semibold text-sm">Room Name</label>
+          <label className="block mb-2 font-semibold text-sm md:text-base">
+            Room Name
+          </label>
 
           <input
+          placeholder="room name"
             type="text"
-            placeholder=""
-            className="w-full h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition"
+            name="room_name"
+            className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
           />
         </div>
 
         {/* Description */}
         <div>
-          <label className="block mb-2 font-semibold text-sm">
+          <label className="block mb-2 font-semibold text-sm md:text-base">
             Description
           </label>
 
           <textarea
+          name="description"
             rows="5"
-            className="w-full p-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition resize-none"
+            className="w-full p-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition resize-none text-sm md:text-base"
           ></textarea>
         </div>
 
         {/* Image URL */}
         <div>
-          <label className="block mb-2 font-semibold text-sm">Image URL</label>
+          <label className="block mb-2 font-semibold text-sm md:text-base">
+            Image URL
+          </label>
 
           <input
+           name="imageUrl"
             type="text"
             placeholder="https://..."
-            className="w-full h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition"
+            className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
           />
         </div>
 
         {/* Grid Inputs */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {/* Floor */}
           <div>
-            <label className="block mb-2 font-semibold text-sm">Floor</label>
+            <label className="block mb-2 font-semibold text-sm md:text-base">
+              Floor
+            </label>
 
             <input
+             name="floor"
               type="text"
               placeholder="e.g. 3rd Floor"
-              className="w-full h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition"
+              className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
             />
           </div>
 
           {/* Capacity */}
           <div>
-            <label className="block mb-2 font-semibold text-sm">Capacity</label>
+            <label className="block mb-2 font-semibold text-sm md:text-base">
+              Capacity
+            </label>
 
             <input
+            name="capacity"
               type="number"
               defaultValue="2"
-              className="w-full h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition"
+              className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
             />
           </div>
 
           {/* Hourly Rate */}
           <div>
-            <label className="block mb-2 font-semibold text-sm">
+            <label className="block mb-2 font-semibold text-sm md:text-base">
               Hourly Rate ($)
             </label>
 
             <input
+            name="rent"
               type="number"
               defaultValue="9"
-              className="w-full h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition"
+              className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
             />
           </div>
         </div>
 
         {/* Amenities */}
         <div>
-          <label className="block mb-4 font-semibold text-sm">Amenities</label>
+          <label className="block mb-4 font-semibold text-sm md:text-base">
+            Amenities
+          </label>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {[
               "Whiteboard",
               "Projector",
@@ -106,9 +137,9 @@ const AddRoomPage = () => {
                 key={idx}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl border border-[#1f3a33] bg-[#071411] cursor-pointer hover:border-[#d8a23c] transition"
               >
-                <input type="checkbox" className="w-4 h-4 accent-[#d8a23c]" />
+                <input name="amenities" type="checkbox" className="w-4 h-4 accent-[#d8a23c]" />
 
-                <span className="text-sm">{item}</span>
+                <span className="text-sm md:text-base">{item}</span>
               </label>
             ))}
           </div>
@@ -117,12 +148,11 @@ const AddRoomPage = () => {
         {/* Button */}
         <button
           type="submit"
-          className="px-6 py-3 rounded-xl bg-[#d8a23c] text-black font-semibold hover:opacity-90 transition"
+          className="cursor-pointer w-full sm:w-auto px-6 py-3 rounded-xl bg-[#d8a23c] text-black font-semibold hover:opacity-90 transition text-sm md:text-base"
         >
           Publish Room
         </button>
       </form>
-    
     </div>
   );
 };
