@@ -137,7 +137,9 @@ console.log(data);
                 key={idx}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl border border-[#1f3a33] bg-[#071411] cursor-pointer hover:border-[#d8a23c] transition"
               >
-                <input name="amenities" type="checkbox" className="w-4 h-4 accent-[#d8a23c]" />
+                <input name="amenities" 
+                value={item}
+                type="checkbox" className="w-4 h-4 accent-[#d8a23c]" />
 
                 <span className="text-sm md:text-base">{item}</span>
               </label>
