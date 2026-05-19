@@ -30,8 +30,8 @@ const Navbar = () => {
           >
             <NavLink href={"/"}>Home</NavLink>
             <NavLink href={"/rooms"}>Rooms</NavLink>
-            <NavLink href={"/login"}>Login</NavLink>
-            <NavLink href={"/register"}>Register</NavLink>
+            <NavLink href={"/signin"}>Sign In</NavLink>
+            <NavLink href={"/signup"}>Sign Up</NavLink>
           </ul>
         </div>
         <Link href={"/"} className="btn btn-ghost text-xl">
@@ -48,11 +48,11 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end gap-3 hidden lg:flex">
-        <Link href={"/login"} className="btn">
-          Login
+        <Link href={"/signin"} className="btn">
+       Sign In
         </Link>
-        <Link href={"/register"} className="btn btn-warning">
-          Register
+        <Link href={"/signup"} className="btn btn-warning">
+        Sign Up
         </Link>
       </div>
     </div>

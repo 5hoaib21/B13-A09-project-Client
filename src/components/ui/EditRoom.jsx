@@ -12,6 +12,7 @@ import {
   ImagePlus,
 } from "lucide-react";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export function EditRoom({ open, setOpen,  room, id }) {
 
@@ -341,14 +342,14 @@ const data = await res.json()
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="h-12 px-6 rounded-xl border border-[#1f3a33] hover:border-[#d8a23c] transition"
+              className="h-12 px-6 rounded-xl border border-[#1f3a33] hover:border-[#d8a23c] transition cursor-pointer"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              className="h-12 px-7 rounded-xl bg-[#d8a23c] text-black font-semibold hover:scale-[1.02] active:scale-[0.98] transition"
+              className="h-12 px-7 rounded-xl bg-[#d8a23c] text-black font-semibold hover:scale-[1.02] active:scale-[0.98] transition cursor-pointer"
             >
               Save Changes
             </button>
