@@ -1,8 +1,20 @@
+"use client";
 import React from "react";
 import NavLink from "./Navlink";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
+
+import { Avatar, Button } from "@heroui/react";
 
 const Navbar = () => {
+  const { data: session } = authClient.useSession();
+
+  const user = session?.user;
+
+  const handleSignOut = async () => {
+    await authClient.signOut()
+  }
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -47,13 +59,30 @@ const Navbar = () => {
           <NavLink href={"/my-bookings"}>My Bookings</NavLink>
         </ul>
       </div>
-      <div className="navbar-end gap-3 hidden lg:flex">
-        <Link href={"/signin"} className="btn">
-       Sign In
-        </Link>
-        <Link href={"/signup"} className="btn btn-warning">
-        Sign Up
-        </Link>
+      <div className="navbar-end gap-3 hidden lg:flex items-center">
+        {user ? (
+          <>
+            <li>
+              <Avatar>
+                <Avatar.Image
+                  alt="John Doe"
+                  src={user?.image}
+                />
+                <Avatar.Fallback>{user?.name[0]}</Avatar.Fallback>
+              </Avatar>
+            </li>
+            <li><Button variant="danger" onClick={handleSignOut} >Sign Out</Button></li>
+          </>
+        ) : (
+          <>
+            <Link href={"/signin"} className="btn">
+              Sign In
+            </Link>
+            <Link href={"/signup"} className="btn btn-warning">
+              Sign Up
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

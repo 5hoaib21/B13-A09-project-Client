@@ -1,6 +1,6 @@
 "use client";
 import { Card } from "@heroui/react";
-import { Check } from "@gravity-ui/icons";
+
 import {
   Button,
   Description,
@@ -11,8 +11,10 @@ import {
   TextField,
 } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
-import { userSchema } from "better-auth";
+
 import { redirect } from "next/navigation";
+import { Icon } from "@iconify/react";
+import Link from "next/link";
 
 const SignUpPage = () => {
   const onSubmit = async (e) => {
@@ -99,6 +101,22 @@ const SignUpPage = () => {
             </Button>
           </div>
         </Form>
+         <div className="text-center">
+                 <h2>I already have an account! <Link href={'/signin'}>
+                 login</Link></h2>
+               </div>
+           <Button className="w-full" variant="tertiary">
+                <Icon icon="devicon:google" />
+                Sign in with Google
+              </Button>
+              <Button isDisabled className="w-full" variant="tertiary">
+                <Icon icon="mdi:github" />
+                Sign in with GitHub
+              </Button>
+              <Button isDisabled className="w-full" variant="tertiary">
+                <Icon icon="ion:logo-apple" />
+                Sign in with Apple
+              </Button>
       </Card>
     </div>
   );

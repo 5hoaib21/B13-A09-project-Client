@@ -12,6 +12,8 @@ import {
 } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
+import {Icon} from "@iconify/react";
+import Link from "next/link";
 
 const SignInPage = () => {
   const onSubmit = async (e) => {
@@ -26,6 +28,7 @@ const SignInPage = () => {
       password: user.password,
   
     });
+    // console.log({data, error});
     if(data) {
       alert('success')
       redirect('/')
@@ -33,7 +36,6 @@ const SignInPage = () => {
     if(error){
       alert(error.message)
     }
-    // console.log({data, error});
   };
 
   return (
@@ -88,6 +90,21 @@ const SignInPage = () => {
             </Button>
           </div>
         </Form>
+         <div className="text-center">
+          <h2>don`t have an account?<Link href={'/signup'}> <span className="text-blue" >register</span></Link></h2>
+        </div>
+         <Button className="w-full" variant="tertiary">
+        <Icon icon="devicon:google" />
+        Sign in with Google
+      </Button>
+      <Button isDisabled className="w-full" variant="tertiary">
+        <Icon icon="mdi:github" />
+        Sign in with GitHub
+      </Button>
+      <Button isDisabled className="w-full" variant="tertiary">
+        <Icon icon="ion:logo-apple" />
+        Sign in with Apple
+      </Button>
       </Card>
     </div>
   );

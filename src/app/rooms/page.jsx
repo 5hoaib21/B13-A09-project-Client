@@ -5,7 +5,7 @@ import React from "react";
 const RoomsPage = async () => {
   const res = await fetch(`http://localhost:8008/room`);
   const rooms = await res.json();
-  console.log(rooms);
+  // console.log(rooms);
   return (
     <div className="w-10/12 mx-auto">
       <div className="space-y-2 mb-5 flex justify-between items-center">
