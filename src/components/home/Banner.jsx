@@ -31,10 +31,21 @@ const Banner = () => {
         {/* BUTTONS */}
         <div className="mt-2 flex flex-wrap gap-4">
           <Link href={"/rooms"}>
-            <button className="flex items-center gap-2 rounded-lg bg-[#ffb86a] px-8 py-4 font-semibold text-[#492900] shadow-lg shadow-[#ffb86a]/10 transition hover:brightness-105">
+            {/* <button className="flex items-center gap-2 rounded-lg bg-[#ffb86a] px-8 py-4 font-semibold text-[#492900] shadow-lg shadow-[#ffb86a]/10 transition hover:brightness-105">
               Explore Rooms
               <span>→</span>
-            </button>
+            </button> */}
+            <button
+  className="relative cursor-pointer px-6 py-2 text-lg font-semibold text-[#c1a362] border-2 border-[#c1a362] rounded-[34px] bg-transparent overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] 
+  hover:text-[#212121] hover:scale-110 hover:shadow-[0_0px_20px_rgba(193,163,98,0.4)]
+  active:scale-100
+  before:content-[''] before:absolute before:inset-0 before:m-auto before:w-[50px] before:h-[50px] before:rounded-[34px]
+  before:bg-[#c1a362] before:scale-0 before:-z-10
+  before:transition-all before:duration-700 before:ease-[cubic-bezier(0.23,1,0.32,1)]
+  hover:before:scale-[3]"
+>
+  Explore More
+</button>
           </Link>
         </div>
 
