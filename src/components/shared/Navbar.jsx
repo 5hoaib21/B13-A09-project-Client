@@ -12,8 +12,8 @@ const Navbar = () => {
   const user = session?.user;
 
   const handleSignOut = async () => {
-    await authClient.signOut()
-  }
+    await authClient.signOut();
+  };
 
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -65,14 +65,18 @@ const Navbar = () => {
             <li>
               <Avatar>
                 <Avatar.Image
-                referrerPolicy="no-referrer"
+                  referrerPolicy="no-referrer"
                   alt="John Doe"
                   src={user?.image}
                 />
                 <Avatar.Fallback>{user?.name[0]}</Avatar.Fallback>
               </Avatar>
             </li>
-            <li><Button variant="danger" onClick={handleSignOut} >Sign Out</Button></li>
+            <li>
+              <Button variant="danger" onClick={handleSignOut}>
+                Sign Out
+              </Button>
+            </li>
           </>
         ) : (
           <>

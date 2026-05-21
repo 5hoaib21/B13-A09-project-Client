@@ -13,6 +13,7 @@ import { Button } from "@heroui/react";
 import { EditRoom } from "@/components/ui/EditRoom";
 import { EditRoomModal } from "@/components/ui/EditRoomModal";
 import { DeleteAlert } from "@/components/ui/DeleteAlert";
+import BookRoomButton from "@/components/ui/BookRoomButton";
 
 const RoomDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -113,10 +114,11 @@ const RoomDetailsPage = async ({ params }) => {
                   </div>
                 </div>
 
-                <button className="mt-8 w-full bg-[#D9A441] text-black font-medium py-4 rounded-xl hover:opacity-90 transition flex justify-center items-center gap-2">
+                {/* <button className="mt-8 w-full bg-[#D9A441] text-black font-medium py-4 rounded-xl hover:opacity-90 transition flex justify-center items-center gap-2">
                   <Calendar size={18} />
                   Book Now
-                </button>
+                </button> */}
+                <BookRoomButton room={room} />
                 <div className=" flex  items-center">
                   <EditRoomModal room={room} id={room?._id} />
                   <DeleteAlert room={room} id={room?._id} />

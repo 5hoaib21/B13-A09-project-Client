@@ -6,7 +6,7 @@ const AllStudyRooms = ({ room }) => {
   // console.log(room.amenities, 'room amini');
   return (
     <div>
-      <div className="h-full rounded-3xl overflow-hidden border border-[#1f3a33] bg-[#071411] text-white shadow-xl group hover:-translate-y-1 transition duration-300 flex flex-col">
+      <div className="h-full rounded-3xl overflow-hidden border border-[#96cebf] bg-white text-black shadow-xl group hover:-translate-y-1 transition duration-300 flex flex-col">
         {/* Image */}
         <div className="overflow-hidden">
           <Image
@@ -23,23 +23,23 @@ const AllStudyRooms = ({ room }) => {
           {/* Title + Price */}
           <div className="flex items-start justify-between gap-3">
             <div>
-              <h2 className="text-2xl font-bold text-[#f5f1e8] line-clamp-1">
+              <h2 className="text-2xl font-bold text-[#000000] line-clamp-1">
                 {room?.room_name}
               </h2>
             </div>
 
-            <div className="shrink-0 px-3 py-1 rounded-full bg-[#2f331f] text-[#f6b73c] text-sm font-semibold">
+            <div className="shrink-0 px-3 py-1 rounded-full   text-black text-sm font-semibold">
               ${room?.rent}/hr
             </div>
           </div>
 
           {/* Description */}
-          <p className="text-[#c9c4b8] text-sm leading-relaxed line-clamp-2">
+          <p className="text-[#000000] text-sm leading-relaxed line-clamp-2">
             {room?.description}
           </p>
 
           {/* Info */}
-          <div className="flex flex-wrap items-center gap-4 text-[#d5cfbf] text-sm">
+          <div className="flex flex-wrap items-center gap-4 text-[#000000] text-sm">
             <div className="flex items-center gap-1">
               <span>🏢</span>
               <span>{room?.floor}</span>
@@ -50,10 +50,10 @@ const AllStudyRooms = ({ room }) => {
               <span>{room?.capacity} people</span>
             </div>
 
-            <div className="flex items-center gap-1">
+            {/* <div className="flex items-center gap-1">
               <span>📚</span>
               <span>21 bookings</span>
-            </div>
+            </div> */}
           </div>
 
           {/* Amenities */}
@@ -62,7 +62,7 @@ const AllStudyRooms = ({ room }) => {
               room?.amenities.map((item, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 rounded-full bg-[#1c2b27] text-white text-xs font-medium"
+                  className="px-3 py-1 rounded-full bg-[#dca85550] text-black text-xs font-medium"
                 >
                   {item}
                 </span>
@@ -73,7 +73,7 @@ const AllStudyRooms = ({ room }) => {
           <div className="">
 
           <Link href={`/rooms/${room._id}`}>
-            <button className="w-full mt-2 border border-[#1f3a33] hover:border-[#d8a23c] bg-[#04100d] hover:bg-[#0b1d18] text-white py-3 rounded-2xl font-semibold transition cursor-pointer">
+            <button className="w-full mt-2 border border-[#1f3a331d] hover:border-[#d8a23c] bg-[#d8dddc86] hover:text-white hover:bg-[#0b1d18] text-black py-3 rounded-2xl font-semibold transition cursor-pointer">
               View Details
             </button>
           </Link>
