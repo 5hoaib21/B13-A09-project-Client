@@ -8,15 +8,12 @@ const RoomsPage = async () => {
   // console.log(rooms);
   return (
     <div className="w-10/12 mx-auto">
-      <div className="space-y-2 mb-5 flex justify-between items-center">
+      <div className="space-y-2  flex flex-col justify-between my-10">
         {" "}
-      
         <h1 className="text-4xl font-bold">All Study Rooms</h1>
         <p className="text-sm text-zinc-400">
           Browse the full catalog. Filter by amenity, price, or search by name.
         </p>
-    
-       
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
         {rooms.map((room) => (

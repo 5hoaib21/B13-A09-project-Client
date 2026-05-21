@@ -1,6 +1,7 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 export function BookingModal({ setOpen, room }) {
   const { data: session } = authClient.useSession();
@@ -58,7 +59,8 @@ export function BookingModal({ setOpen, room }) {
       body: JSON.stringify(bookingData),
     });
     const data = await res.json();
-    console.log(data);
+    toast.success("successfully booked your room");
+    // console.log(data);
 
     // modal close
     setOpen(false);
