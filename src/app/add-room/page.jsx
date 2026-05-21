@@ -1,24 +1,25 @@
 "use client";
+
+import { useRouter } from "next/navigation";
+
 const AddRoomPage = () => {
+  const router = useRouter();
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const newRoomData = Object.fromEntries(formData.entries());
 
-const onSubmit = async (e) => {
-e.preventDefault()
-const formData = new FormData(e.currentTarget)
-const newRoomData = Object.fromEntries(formData.entries())
-
-const res = await fetch('http://localhost:8008/room', {
-  method: "POST",
-  headers: {
-    'content-type': "application/json"
-  },
-  body: JSON.stringify(newRoomData)
-})
-const data = await res.json()
-console.log(data);
-
-
-}
-
+    const res = await fetch("http://localhost:8008/room", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newRoomData),
+    });
+    const data = await res.json();
+    router.refresh();
+    console.log(data);
+  };
 
   return (
     <div className="max-w-4xl mx-auto my-10">
@@ -30,8 +31,9 @@ console.log(data);
         </p>
       </div>
       <form
-      onSubmit={onSubmit}
-       className="w-full max-w-5xl rounded-[28px] border border-[#1f3a33] bg-[#071411] p-4 sm:p-6 md:p-8 lg:p-10 text-white shadow-2xl space-y-6">
+        onSubmit={onSubmit}
+        className="w-full max-w-5xl rounded-[28px] border border-[#1f3a33] bg-[#071411] p-4 sm:p-6 md:p-8 lg:p-10 text-white shadow-2xl space-y-6"
+      >
         {/* Room Name */}
         <div>
           <label className="block mb-2 font-semibold text-sm md:text-base">
@@ -39,7 +41,7 @@ console.log(data);
           </label>
 
           <input
-          placeholder="room name"
+            placeholder="room name"
             type="text"
             name="room_name"
             className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
@@ -53,7 +55,7 @@ console.log(data);
           </label>
 
           <textarea
-          name="description"
+            name="description"
             rows="5"
             className="w-full p-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition resize-none text-sm md:text-base"
           ></textarea>
@@ -66,7 +68,7 @@ console.log(data);
           </label>
 
           <input
-           name="imageUrl"
+            name="imageUrl"
             type="text"
             placeholder="https://..."
             className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
@@ -82,7 +84,7 @@ console.log(data);
             </label>
 
             <input
-             name="floor"
+              name="floor"
               type="text"
               placeholder="e.g. 3rd Floor"
               className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
@@ -96,7 +98,7 @@ console.log(data);
             </label>
 
             <input
-            name="capacity"
+              name="capacity"
               type="number"
               defaultValue="2"
               className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
@@ -110,7 +112,7 @@ console.log(data);
             </label>
 
             <input
-            name="rent"
+              name="rent"
               type="number"
               defaultValue="9"
               className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
@@ -137,9 +139,12 @@ console.log(data);
                 key={idx}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl border border-[#1f3a33] bg-[#071411] cursor-pointer hover:border-[#d8a23c] transition"
               >
-                <input name="amenities" 
-                value={item}
-                type="checkbox" className="w-4 h-4 accent-[#d8a23c]" />
+                <input
+                  name="amenities"
+                  value={item}
+                  type="checkbox"
+                  className="w-4 h-4 accent-[#d8a23c]"
+                />
 
                 <span className="text-sm md:text-base">{item}</span>
               </label>

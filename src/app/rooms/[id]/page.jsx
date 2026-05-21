@@ -72,14 +72,15 @@ const RoomDetailsPage = async ({ params }) => {
                   </h3>
 
                   <div className="flex flex-wrap gap-3">
-                    {room?.amenities.map((item) => (
-                      <span
-                        key={item}
-                        className="px-4 py-2 rounded-full bg-white/10 border border-white/10 text-sm"
-                      >
-                        {item}
-                      </span>
-                    ))}
+                    {Array.isArray(room?.amenities) &&
+                      room?.amenities.map((item) => (
+                        <span
+                          key={item}
+                          className="px-4 py-2 rounded-full bg-white/10 border border-white/10 text-sm"
+                        >
+                          {item}
+                        </span>
+                      ))}
                   </div>
                 </div>
               </div>

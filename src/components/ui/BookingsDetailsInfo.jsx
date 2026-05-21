@@ -30,11 +30,11 @@ export function BookingsDetailsInfo({ bookings }) {
               </Table.Row>
             ) : (
               bookings?.map((booking) => (
-                <Table.Row key={booking._id}>
-                  <Table.Cell>{booking.roomName}</Table.Cell>
+                <Table.Row key={booking?._id}>
+                  <Table.Cell>{booking?.roomName}</Table.Cell>
 
                   <Table.Cell>
-                    {new Date(booking.date).toLocaleDateString("en-US", {
+                    {new Date(booking?.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
@@ -42,18 +42,18 @@ export function BookingsDetailsInfo({ bookings }) {
                   </Table.Cell>
 
                   <Table.Cell>
-                    {booking.startTime} - {booking.endTime}
+                    {booking?.startTime} - {booking?.endTime}
                   </Table.Cell>
 
-                  <Table.Cell>$ {booking.totalCost}</Table.Cell>
+                  <Table.Cell>$ {booking?.totalCost}</Table.Cell>
                   <Table.Cell>
                     {" "}
                     <Chip
                       color={
-                        booking.status === "cancelled" ? "danger" : "success"
+                        booking?.status === "cancelled" ? "danger" : "success"
                       }
                     >
-                      {booking.status || "confirmed"}
+                      {booking?.status || "confirmed"}
                     </Chip>
                   </Table.Cell>
 
