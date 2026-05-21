@@ -1,8 +1,12 @@
 import { Button, Chip, Table } from "@heroui/react";
 import Image from "next/image";
+import { CancelBooking } from "./CancelBooking";
 
 export function BookingsDetailsInfo({ bookings }) {
-  console.log(bookings, "hello ");
+  // const isFuture =
+  //   new Date(booking.date).setHours(0, 0, 0, 0) >=
+  //   new Date().setHours(0, 0, 0, 0);
+  // console.log(bookings, "hello ");
   return (
     <Table>
       <Table.ScrollContainer>
@@ -44,11 +48,17 @@ export function BookingsDetailsInfo({ bookings }) {
                   <Table.Cell>$ {booking.totalCost}</Table.Cell>
                   <Table.Cell>
                     {" "}
-                    <Chip color="success">Confirmed</Chip>
+                    <Chip
+                      color={
+                        booking.status === "cancelled" ? "danger" : "success"
+                      }
+                    >
+                      {booking.status || "confirmed"}
+                    </Chip>
                   </Table.Cell>
 
                   <Table.Cell>
-                    <Button variant="danger-soft">Cancel</Button>
+                    <CancelBooking bookingId={booking._id} />
                   </Table.Cell>
                 </Table.Row>
               ))

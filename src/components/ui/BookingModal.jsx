@@ -50,6 +50,7 @@ export function BookingModal({ setOpen, room }) {
       endTime,
       specialNote,
       totalCost,
+      status: "confirmed",
     };
     const res = await fetch(`http://localhost:8008/booking`, {
       method: "POST",
