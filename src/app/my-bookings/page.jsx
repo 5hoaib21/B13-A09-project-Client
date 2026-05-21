@@ -1,7 +1,19 @@
-import React from "react";
+import { BookingsDetailsInfo } from "@/components/ui/BookingsDetailsInfo";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const MyBookingsPage = async () => {
-  const session = await 
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  const user = session?.user;
+
+  const res = await fetch(`http://localhost:8008/booking/${user?.id}`);
+  const bookings = await res.json();
+  // console.log(bookings, "data from booking list");
+
+  // console.log(user, "user from booking list");
   return (
     <div className="w-10/12 mx-auto">
       <div className="space-y-2  flex flex-col justify-between my-10">
@@ -10,7 +22,12 @@ const MyBookingsPage = async () => {
           Manage your upcoming and past room reservations.
         </p>
       </div>
-      <div></div>
+      <div className="my-10 mb-70">
+        <BookingsDetailsInfo
+          bookings={bookings}
+          key={bookings._id}
+        ></BookingsDetailsInfo>
+      </div>
     </div>
   );
 };
