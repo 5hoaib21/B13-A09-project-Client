@@ -38,6 +38,12 @@ const SignInPage = () => {
     }
   };
 
+    const handleGoogleSignin = async () => {
+      await authClient.signIn.social({
+        provider: 'google',
+      })
+     } 
+
   return (
     <div className="w-5/12 mx-auto my-20">
       <h2 className="text-3xl font-bold my-3">Create Your Account!</h2>
@@ -93,10 +99,10 @@ const SignInPage = () => {
          <div className="text-center">
           <h2>don`t have an account?<Link href={'/signup'}> <span className="text-blue" >register</span></Link></h2>
         </div>
-         <Button className="w-full" variant="tertiary">
-        <Icon icon="devicon:google" />
-        Sign in with Google
-      </Button>
+       <Button onClick={handleGoogleSignin} className="w-full" variant="tertiary">
+                <Icon icon="devicon:google" />
+                Sign in with Google
+              </Button>
       <Button isDisabled className="w-full" variant="tertiary">
         <Icon icon="mdi:github" />
         Sign in with GitHub
