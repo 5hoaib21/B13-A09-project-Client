@@ -1,16 +1,8 @@
 // 'use client'
 import Image from "next/image";
-import {
-  Calendar,
-  Users,
-  Layers3,
-  DollarSign,
-  Pencil,
-  Delete,
-} from "lucide-react";
+import { Users, Layers3, DollarSign } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@heroui/react";
-import { EditRoom } from "@/components/ui/EditRoom";
+
 import { EditRoomModal } from "@/components/ui/EditRoomModal";
 import { DeleteAlert } from "@/components/ui/DeleteAlert";
 import BookRoomButton from "@/components/ui/BookRoomButton";

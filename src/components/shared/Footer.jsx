@@ -1,10 +1,10 @@
 const Footer = () => {
   return (
-    <footer className="bg-black text-gray-400 px-6 md:px-16 py-16">
+    <footer className="bg-white text-gray-400 px-6 md:px-16 py-16">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
           <h1 className="text-6xl md:text-7xl font-bold text-white">
-           StudyNook
+            StudyNook
           </h1>
           <p className="mt-4 max-w-xl">
             Your gateway to extraordinary travel experiences around the world.
@@ -32,24 +32,36 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white mb-3 tracking-wide">QUICK LINKS</h3>
+            <h3 className="text-orange-500 font-bold mb-3 tracking-wide">
+              QUICK LINKS
+            </h3>
             <ul className="space-y-2">
-              <li className="hover:text-white cursor-pointer">Home</li>
-              <li className="hover:text-white cursor-pointer">Destinations</li>
-              <li className="hover:text-white cursor-pointer">My Bookings</li>
-              <li className="hover:text-white cursor-pointer">My Profile</li>
+              <li className="hover:text-orange-300 cursor-pointer">Home</li>
+              <li className="hover:text-orange-300 cursor-pointer">
+                Destinations
+              </li>
+              <li className="hover:text-orange-300 cursor-pointer">
+                My Bookings
+              </li>
+              <li className="hover:text-orange-300 cursor-pointer">
+                My Profile
+              </li>
             </ul>
           </div>
 
           {/* Support */}
           <div>
-            <h3 className="text-white mb-3 tracking-wide">SUPPORT</h3>
+            <h3 className="text-orange-500 font-bold mb-3 tracking-wide">
+              SUPPORT
+            </h3>
             <ul className="space-y-2">
-              <li className="hover:text-white cursor-pointer">Help Center</li>
-              <li className="hover:text-white cursor-pointer">
+              <li className="hover:text-orange-300 cursor-pointer">
+                Help Center
+              </li>
+              <li className="hover:text-orange-300 cursor-pointer">
                 Terms of Service
               </li>
-              <li className="hover:text-white cursor-pointer">
+              <li className="hover:text-orange-300 cursor-pointer">
                 Privacy Policy
               </li>
             </ul>
@@ -57,7 +69,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h3 className="text-white mb-3 tracking-wide">CONTACT US</h3>
+            <h3 className="text-orange-500 mb-3 tracking-wide">CONTACT US</h3>
             <ul className="space-y-2">
               <li>786 901 1622</li>
               <li>info@studynook.com</li>
@@ -66,12 +78,10 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-gray-800 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm">
-            © 2026 Wanderlust. All rights reserved.
-          </p>
+        <div className=" border-t border-gray-800 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-sm">© 2026 Wanderlust. All rights reserved.</p>
 
-          <div className="flex gap-5 mt-4 md:mt-0 text-white text-lg">
+          <div className="flex gap-5 mt-4 md:mt-0 text-black text-lg">
             <span className="cursor-pointer">X</span>
             <span className="cursor-pointer">in</span>
             <span className="cursor-pointer">◎</span>

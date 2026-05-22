@@ -1,25 +1,30 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import { CloudDownload } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const AddRoomPage = () => {
-  const {data: session} = authClient.useSession()
+  const { data: session } = authClient.useSession();
   const user = session?.user;
-
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const newRoomData = Object.fromEntries(formData.entries());
 
+    const newRoomData = {
+      room_name: formData.get("room_name"),
+      description: formData.get("description"),
+      imageUrl: formData.get("imageUrl"),
+      floor: formData.get("floor"),
+      capacity: formData.get("capacity"),
+      rent: formData.get("rent"),
 
-    const roomData {
-      ...newRoomData,
-      
-    }
-
+      // multiple checkbox values
+      amenities: formData.getAll("amenities"),
+    };
+    // console.log(newRoomData, "formData");
 
     const res = await fetch("http://localhost:8008/room", {
       method: "POST",
