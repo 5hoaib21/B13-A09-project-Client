@@ -1,4 +1,3 @@
-// 'use client'
 import Image from "next/image";
 import { Users, Layers3, DollarSign } from "lucide-react";
 import Link from "next/link";
@@ -14,10 +13,18 @@ const RoomDetailsPage = async ({ params }) => {
     headers: await headers(),
   });
   const user = session?.user;
-  // console.log(session, "user session");
   const { id } = await params;
 
-  const res = await fetch(`http://localhost:8008/room/${id}`);
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  // console.log(token);
+
+  const res = await fetch(`http://localhost:8008/room/${id}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
   const room = await res.json();
   // console.log(room, "room");
   return (

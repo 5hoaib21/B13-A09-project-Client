@@ -4,7 +4,7 @@ import { DeleteAlert } from "./DeleteAlert";
 import { EditRoomModal } from "./EditRoomModal";
 
 export function MyListingCard({ booking }) {
-  console.log(booking, "bookings");
+
   return (
     <Card className="w-full items-stretch md:flex-row mb-5">
       <div className="relative h-35 w-full shrink-0 overflow-hidden rounded-2xl sm:h-30 sm:w-30">

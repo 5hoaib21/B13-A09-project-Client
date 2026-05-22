@@ -7,21 +7,16 @@ export function BookingModal({ setOpen, room }) {
   const { data: session } = authClient.useSession();
 
   const user = session?.user;
-  // console.log(user);
-  // console.log(room, "room id hhhhhhhhhhhh");
-  const roomRate = room.rent;
 
-  // const [open, setOpen] = useState(false);
+  const roomRate = room.rent;
 
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [startTime, setStartTime] = useState("09:00");
   const [endTime, setEndTime] = useState("11:00");
   const [specialNote, setSpecialNote] = useState("");
 
-  // বুকিংয়ের প্রতি ঘণ্টার রেট
   const hourlyRate = roomRate;
 
-  // মোট খরচ হিসাব
   const calculateTotalCost = () => {
     const start = parseInt(startTime.split(":")[0]);
     const end = parseInt(endTime.split(":")[0]);
@@ -61,15 +56,12 @@ export function BookingModal({ setOpen, room }) {
     });
     const data = await res.json();
     toast.success("successfully booked your room");
-    // console.log(data);
 
-    // modal close
     setOpen(false);
   };
 
   return (
     <>
-      {/* ওপেন করার বাটন */}
       <button
         onClick={() => setOpen(true)}
         className="rounded-lg bg-[#1E2E24] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#152019] transition-colors"
@@ -77,12 +69,9 @@ export function BookingModal({ setOpen, room }) {
         Open Booking Modal
       </button>
 
-      {/* Modal */}
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 font-sans">
-          {/* মোডাল কন্টেইনার */}
           <div className="relative w-full max-w-md rounded-2xl bg-[#FBF9F4] p-6 shadow-xl text-[#2D3732]">
-            {/* ক্লোজ বাটন */}
             <button
               onClick={() => setOpen(false)}
               className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 transition-colors"
@@ -103,7 +92,6 @@ export function BookingModal({ setOpen, room }) {
               </svg>
             </button>
 
-            {/* হেডার */}
             <div className="mb-5">
               <h2 className=" font-serif  text-[#1E2E24]">
                 <span className="text-xl">Book </span>
@@ -115,9 +103,7 @@ export function BookingModal({ setOpen, room }) {
               </p>
             </div>
 
-            {/* ফর্ম */}
             <form onSubmit={handleConfirm} className="space-y-4">
-              {/* ডেট */}
               <div>
                 <label className="block text-xs font-semibold text-gray-700 mb-1">
                   Date
@@ -131,7 +117,6 @@ export function BookingModal({ setOpen, room }) {
                 />
               </div>
 
-              {/* টাইম */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 mb-1">
@@ -168,7 +153,6 @@ export function BookingModal({ setOpen, room }) {
                 </div>
               </div>
 
-              {/* নোট */}
               <div>
                 <label className="block text-xs font-semibold text-gray-700 mb-1">
                   Special note
@@ -183,7 +167,6 @@ export function BookingModal({ setOpen, room }) {
                 />
               </div>
 
-              {/* কস্ট */}
               <div className="flex items-center justify-between rounded-xl bg-[#F3EFE4] px-4 py-3.5">
                 <span className="text-sm font-medium text-gray-600">
                   Total cost
@@ -194,7 +177,6 @@ export function BookingModal({ setOpen, room }) {
                 </span>
               </div>
 
-              {/* বাটন */}
               <div className="flex items-center justify-end space-x-3 pt-2">
                 <button
                   type="button"

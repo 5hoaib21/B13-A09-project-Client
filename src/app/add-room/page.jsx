@@ -1,14 +1,11 @@
 "use client";
-
 import { authClient } from "@/lib/auth-client";
-import { CloudDownload } from "lucide-react";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
 
 const AddRoomPage = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(user, "user");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -29,12 +26,13 @@ const AddRoomPage = () => {
       amenities: formData.getAll("amenities"),
     };
 
-    console.log(newRoomData, "formData");
+    const { data: tokenData } = await authClient.token();
 
     const res = await fetch("http://localhost:8008/room", {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${tokenData?.token}`,
       },
       body: JSON.stringify(newRoomData),
     });

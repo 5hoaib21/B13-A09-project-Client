@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 export function EditRoom({ open, setOpen, room, id }) {
   const router = useRouter();
@@ -28,10 +29,12 @@ export function EditRoom({ open, setOpen, room, id }) {
       amenities: selectedAmenities,
     };
 
+    const { data: tokenData } = await authClient.token();
     const res = await fetch(`http://localhost:8008/room/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${tokenData?.token}`,
       },
       body: JSON.stringify(newRoomData),
     });

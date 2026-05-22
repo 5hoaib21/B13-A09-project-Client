@@ -9,9 +9,15 @@ const MyListingPage = async () => {
   });
 
   const user = session?.user;
-  // console.log(user, "user");
 
-  const res = await fetch(`http://localhost:8008/myroom/${user?.id}`);
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  const res = await fetch(`http://localhost:8008/myroom/${user?.id}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
   const bookings = await res.json();
   console.log(bookings, "session from my listing page");
 
