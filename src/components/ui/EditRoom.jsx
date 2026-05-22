@@ -9,44 +9,41 @@ import {
   PlugZap,
   VolumeX,
   Presentation,
-  ImagePlus,
 } from "lucide-react";
-import Image from "next/image";
-import { redirect } from "next/navigation";
 
-export function EditRoom({ open, setOpen,  room, id }) {
+import { useRouter } from "next/navigation";
 
-const onSubmit = async (e) => {
-e.preventDefault()
-const formData = new FormData(e.currentTarget)
-const newRoomData = Object.fromEntries(formData.entries())
-// console.log(newRoomData,' new room data');
+export function EditRoom({ open, setOpen, room, id }) {
+  const router = useRouter();
+  const [selectedAmenities, setSelectedAmenities] = useState(
+    room?.amenities || [],
+  );
+  // const [preview, setPreview] = useState(null);
+  const onSubmit = async (e) => {
+    e.preventDefault();
 
-const res = await fetch(`http://localhost:8008/room/${id}`, {
-  method: "PATCH",
-  headers: {
-    'content-type': "application/json"
-  },
-  body: JSON.stringify(newRoomData)
-})
-const data = await res.json()
-  redirect('/rooms')
+    const formData = new FormData(e.currentTarget);
+    const newRoomData = {
+      ...Object.fromEntries(formData.entries()),
+      amenities: selectedAmenities,
+    };
 
-
-
-}
-
-
-
-
-
+    const res = await fetch(`http://localhost:8008/room/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newRoomData),
+    });
+    await res.json();
+    if (res.ok) {
+      setOpen(false);
+      router.refresh();
+    }
+  };
 
   const modalRef = useRef(null);
 
-  const [selectedAmenities, setSelectedAmenities] = useState([]);
-  const [preview, setPreview] = useState(null);
-
-  // amenities
   const amenities = [
     {
       name: "Whiteboard",
@@ -76,22 +73,14 @@ const data = await res.json()
 
   // toggle amenity
   const toggleAmenity = (item) => {
-    if (selectedAmenities.includes(item)) {
-      setSelectedAmenities(
-        selectedAmenities.filter((a) => a !== item)
-      );
-    } else {
-      setSelectedAmenities([...selectedAmenities, item]);
-    }
+    setSelectedAmenities((prev) =>
+      prev.includes(item) ? prev.filter((a) => a !== item) : [...prev, item],
+    );
   };
-
   // outside click close
   useEffect(() => {
     const handleOutside = (e) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(e.target)
-      ) {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
         setOpen(false);
       }
     };
@@ -99,10 +88,7 @@ const data = await res.json()
     document.addEventListener("mousedown", handleOutside);
 
     return () => {
-      document.removeEventListener(
-        "mousedown",
-        handleOutside
-      );
+      document.removeEventListener("mousedown", handleOutside);
     };
   }, [setOpen]);
 
@@ -121,20 +107,10 @@ const data = await res.json()
     };
   }, [setOpen]);
 
-  // image preview
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-    }
-  };
-
   if (!open) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-3 sm:p-5 overflow-y-auto animate-in fade-in duration-300">
-      
       {/* modal */}
       <div
         ref={modalRef}
@@ -150,9 +126,7 @@ const data = await res.json()
 
         {/* header */}
         <div>
-          <h2 className="text-2xl md:text-4xl font-bold">
-            Edit Room
-          </h2>
+          <h2 className="text-2xl md:text-4xl font-bold">Edit Room</h2>
 
           <p className="text-zinc-400 mt-2 text-sm md:text-base">
             Update your room information
@@ -160,10 +134,7 @@ const data = await res.json()
         </div>
 
         {/* form */}
-        <form
-          onSubmit={onSubmit}
-          className="space-y-6"
-        >
+        <form onSubmit={onSubmit} className="space-y-6">
           {/* Room Name */}
           <div>
             <label className="block mb-2 font-semibold text-sm md:text-base">
@@ -171,7 +142,7 @@ const data = await res.json()
             </label>
 
             <input
-            defaultValue={room?.room_name}
+              defaultValue={room?.room_name}
               placeholder="room name"
               type="text"
               name="room_name"
@@ -186,7 +157,7 @@ const data = await res.json()
             </label>
 
             <textarea
-            defaultValue={room?.description}
+              defaultValue={room?.description}
               name="description"
               rows="5"
               className="w-full p-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition resize-none"
@@ -194,65 +165,63 @@ const data = await res.json()
           </div>
 
           {/* image upload preview */}
-  <div>
-          <label className="block mb-2 font-semibold text-sm md:text-base">
-            Image URL
-          </label>
-
-          <input
-          defaultValue={room?.imageUrl}
-           name="imageUrl"
-            type="text"
-            placeholder="https://..."
-            className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
-          />
-        </div>
-         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Floor */}
           <div>
             <label className="block mb-2 font-semibold text-sm md:text-base">
-              Floor
+              Image URL
             </label>
 
             <input
-            defaultValue={room?.floor}
-             name="floor"
+              defaultValue={room?.imageUrl}
+              name="imageUrl"
               type="text"
-              placeholder="e.g. 3rd Floor"
+              placeholder="https://..."
               className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
             />
           </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Floor */}
+            <div>
+              <label className="block mb-2 font-semibold text-sm md:text-base">
+                Floor
+              </label>
 
-          {/* Capacity */}
-          <div>
-            <label className="block mb-2 font-semibold text-sm md:text-base">
-              Capacity
-            </label>
+              <input
+                defaultValue={room?.floor}
+                name="floor"
+                type="text"
+                placeholder="e.g. 3rd Floor"
+                className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
+              />
+            </div>
 
-            <input
-            defaultValue={room?.capacity}
-            name="capacity"
-              type="number"
-              
-              className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
-            />
+            {/* Capacity */}
+            <div>
+              <label className="block mb-2 font-semibold text-sm md:text-base">
+                Capacity
+              </label>
+
+              <input
+                defaultValue={room?.capacity}
+                name="capacity"
+                type="number"
+                className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
+              />
+            </div>
+
+            {/* Hourly Rate */}
+            <div>
+              <label className="block mb-2 font-semibold text-sm md:text-base">
+                Hourly Rate ($)
+              </label>
+
+              <input
+                name="rent"
+                type="number"
+                defaultValue={room?.rent}
+                className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
+              />
+            </div>
           </div>
-
-          {/* Hourly Rate */}
-          <div>
-            <label className="block mb-2 font-semibold text-sm md:text-base">
-              Hourly Rate ($)
-            </label>
-
-            <input
-
-            name="rent"
-              type="number"
-              defaultValue={room?.rent}
-              className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
-            />
-          </div>
-        </div>
 
           {/* amenities */}
           <div>
@@ -260,21 +229,15 @@ const data = await res.json()
               Amenities
             </label>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"   >
-
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {amenities.map((item, idx) => {
-                const active =
-                  selectedAmenities.includes(item.name);
+                const active = selectedAmenities.includes(item.name);
 
                 return (
                   <button
-                
-                 name="amenities" 
                     key={idx}
-                    type=""
-                    onClick={() =>
-                      toggleAmenity(item.name)
-                    }
+                    type="button"
+                    onClick={() => toggleAmenity(item.name)}
                     className={`group relative overflow-hidden flex items-center gap-3 px-4 py-4 rounded-2xl border transition-all duration-300 hover:scale-[1.02]
                     
                     ${
@@ -310,9 +273,7 @@ const data = await res.json()
                     {/* icon */}
                     <div
                       className={`transition ${
-                        active
-                          ? "text-[#d8a23c]"
-                          : "text-zinc-400"
+                        active ? "text-[#d8a23c]" : "text-zinc-400"
                       }`}
                     >
                       {item.icon}
@@ -322,11 +283,7 @@ const data = await res.json()
                     <span
                       className={`relative text-sm md:text-base font-medium transition
                       
-                      ${
-                        active
-                          ? "text-[#f6d28b]"
-                          : "text-zinc-300"
-                      }
+                      ${active ? "text-[#f6d28b]" : "text-zinc-300"}
                       `}
                     >
                       {item.name}

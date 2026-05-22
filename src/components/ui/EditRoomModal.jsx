@@ -14,7 +14,7 @@ export function EditRoomModal({ room, id }) {
       {/* Open Button */}
       <Button
         onClick={() => setOpen(true)}
-        className={"text-sm font-bold bg-zinc-500"}
+        className={"text-sm font-bold bg-blue-200"}
         variant=""
       >
         <Pencil /> Edit

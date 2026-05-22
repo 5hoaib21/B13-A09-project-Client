@@ -1,9 +1,11 @@
+import Link from "next/link";
+
 const Footer = () => {
   return (
     <footer className="bg-white text-gray-400 px-6 md:px-16 py-16">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
-          <h1 className="text-6xl md:text-7xl font-bold text-white">
+          <h1 className="text-6xl md:text-7xl font-bold text-black">
             StudyNook
           </h1>
           <p className="mt-4 max-w-xl">
@@ -36,15 +38,17 @@ const Footer = () => {
               QUICK LINKS
             </h3>
             <ul className="space-y-2">
-              <li className="hover:text-orange-300 cursor-pointer">Home</li>
               <li className="hover:text-orange-300 cursor-pointer">
-                Destinations
+                <Link href={"/"}>Home</Link>
               </li>
               <li className="hover:text-orange-300 cursor-pointer">
-                My Bookings
+                <Link href={"/rooms"}>Rooms</Link>
               </li>
               <li className="hover:text-orange-300 cursor-pointer">
-                My Profile
+                <Link href={"/add-room"}>Add Room</Link>
+              </li>
+              <li className="hover:text-orange-300 cursor-pointer">
+                <Link href={"/my-bookings"}> My Bookings</Link>
               </li>
             </ul>
           </div>

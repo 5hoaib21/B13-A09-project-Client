@@ -25,7 +25,7 @@ const MyBookingsPage = async () => {
       <div className="my-10 mb-70">
         <BookingsDetailsInfo
           bookings={bookings}
-          key={bookings._id}
+          key={bookings?._id}
         ></BookingsDetailsInfo>
       </div>
     </div>

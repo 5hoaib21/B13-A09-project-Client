@@ -58,7 +58,9 @@ export function BookingsDetailsInfo({ bookings }) {
                   </Table.Cell>
 
                   <Table.Cell>
-                    <CancelBooking bookingId={booking._id} />
+                    {booking?.status != "cancelled" && (
+                      <CancelBooking bookingId={booking._id} />
+                    )}
                   </Table.Cell>
                 </Table.Row>
               ))

@@ -6,21 +6,28 @@ import Link from "next/link";
 import { EditRoomModal } from "@/components/ui/EditRoomModal";
 import { DeleteAlert } from "@/components/ui/DeleteAlert";
 import BookRoomButton from "@/components/ui/BookRoomButton";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 
 const RoomDetailsPage = async ({ params }) => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  const user = session?.user;
+  // console.log(session, "user session");
   const { id } = await params;
 
   const res = await fetch(`http://localhost:8008/room/${id}`);
   const room = await res.json();
-  // console.log(room);
+  // console.log(room, "room");
   return (
     <div>
-      <div className="min-h-screen bg-[#07120F] text-white">
+      <div className="min-h-screen bg-white text-black">
         <div className="max-w-7xl mx-auto px-5 lg:px-8 py-10">
           {/* Back */}
           <Link href={"/rooms"}>
             {" "}
-            <button className="mb-8 flex items-center gap-2 text-sm text-gray-300 cursor-pointer hover:text-white transition">
+            <button className="mb-8 flex items-center gap-2 text-sm text-gray-600 cursor-pointer hover:text-white transition">
               ← Back
             </button>
           </Link>
@@ -35,7 +42,7 @@ const RoomDetailsPage = async ({ params }) => {
                   alt={room?.room_name}
                   width={1400}
                   height={800}
-                  className="w-full h-130 object-cover"
+                  className="w-full h-130 object-cover shadow-2xl"
                 />
               </div>
 
@@ -81,7 +88,7 @@ const RoomDetailsPage = async ({ params }) => {
             {/* RIGHT SIDEBAR */}
             <div className="room-y-6">
               {/* Booking Card */}
-              <div className="sticky top-6 rounded-3xl border border-white/10 bg-[#0B1714] p-7">
+              <div className="sticky top-6 rounded-3xl border border-white/10 bg-white p-7">
                 <div className="flex justify-between items-start">
                   <h2 className="text-5xl font-bold text-[#D9A441]">
                     ${room.rent}
@@ -103,7 +110,7 @@ const RoomDetailsPage = async ({ params }) => {
 
                   <div className="flex items-center gap-3">
                     <DollarSign size={18} />
-                    <span>{room?.bookings} total bookings</span>
+                    <span>{room?._id?.length} total bookings</span>
                   </div>
                 </div>
 
@@ -112,21 +119,21 @@ const RoomDetailsPage = async ({ params }) => {
                   Book Now
                 </button> */}
                 <BookRoomButton room={room} />
-                <div className=" flex  items-center">
+                {/* <div className=" flex  items-center">
                   <EditRoomModal room={room} id={room?._id} />
                   <DeleteAlert room={room} id={room?._id} />
-                </div>
+                </div> */}
               </div>
 
               {/* Host Card */}
-              <div className="rounded-3xl border border-white/10 bg-[#0B1714] p-6 mt-5">
+              <div className="rounded-3xl border border-white/10 bg-[#ffffff] p-6 mt-5">
                 <p className="text-xs tracking-widest uppercase text-gray-500 mb-5">
                   Listed By
                 </p>
 
                 <div className="flex items-center gap-4">
                   <Image
-                    src={room?.imageUrl}
+                    src={user?.image}
                     alt={room?.room_name}
                     width={60}
                     height={60}
@@ -134,7 +141,7 @@ const RoomDetailsPage = async ({ params }) => {
                   />
 
                   <div>
-                    <h4 className="font-semibold text-lg">Maya Chen</h4>
+                    <h4 className="font-semibold text-lg">{user?.name}</h4>
 
                     <p className="text-sm text-gray-400">maya@studynook.demo</p>
                   </div>

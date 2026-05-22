@@ -13,13 +13,10 @@ export function CancelBooking({ bookingId, bookingStatus }) {
       `http://localhost:8008/booking/${bookingId}/cancel`,
       {
         method: "PATCH",
-        headers: {
-          "content-type": "application/json",
-        },
       },
     );
     const data = await res.json();
-    console.log(data, "from cancelled");
+    // console.log(data, "from cancelled");
     if (data.modifiedCount > 0) {
       toast.success("Booking cancelled");
       router.refresh();
