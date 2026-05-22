@@ -11,7 +11,7 @@ const MyBookingsPage = async () => {
 
   const res = await fetch(`http://localhost:8008/booking/${user?.id}`);
   const bookings = await res.json();
-  // console.log(bookings, "data from booking list");
+  console.log(bookings, "data from booking list");
 
   // console.log(user, "user from booking list");
   return (

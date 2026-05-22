@@ -118,7 +118,7 @@ const RoomDetailsPage = async ({ params }) => {
                   <Calendar size={18} />
                   Book Now
                 </button> */}
-                <BookRoomButton room={room} />
+                <BookRoomButton user={user} room={room} />
                 {/* <div className=" flex  items-center">
                   <EditRoomModal room={room} id={room?._id} />
                   <DeleteAlert room={room} id={room?._id} />
