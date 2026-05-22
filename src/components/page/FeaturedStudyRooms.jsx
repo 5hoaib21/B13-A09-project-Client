@@ -14,14 +14,13 @@ const FeaturedStudyRooms = async () => {
         <div>
           <h1 className="text-4xl font-bold">Students` Most Loved</h1>
         </div>
-         <div>
-<Link href={'/rooms'}>
-
-           <button className="flex items-center gap-2 rounded-lg bg-[#ffb86a] px-8 py-4 font-semibold text-[#492900] shadow-lg shadow-[#ffb86a]/10 transition hover:brightness-105">
-             View all
+        <div>
+          <Link href={"/rooms"}>
+            <button className="cursor-pointer flex items-center gap-2 rounded-lg bg-[#ffb86a] px-8 py-4 font-semibold text-[#492900] shadow-lg shadow-[#ffb86a]/10 transition hover:brightness-105">
+              View all
               <span>→</span>
             </button>
-</Link>
+          </Link>
         </div>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">

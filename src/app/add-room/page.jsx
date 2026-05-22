@@ -1,13 +1,25 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { redirect, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const AddRoomPage = () => {
-  const router = useRouter();
+  const {data: session} = authClient.useSession()
+  const user = session?.user;
+
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const newRoomData = Object.fromEntries(formData.entries());
+
+
+    const roomData {
+      ...newRoomData,
+      
+    }
+
 
     const res = await fetch("http://localhost:8008/room", {
       method: "POST",
@@ -16,9 +28,12 @@ const AddRoomPage = () => {
       },
       body: JSON.stringify(newRoomData),
     });
+
     const data = await res.json();
-    router.refresh();
-    console.log(data);
+    // router.refresh();
+    toast.success("Room Added Successfully");
+    redirect("/rooms");
+    // console.log(data);
   };
 
   return (

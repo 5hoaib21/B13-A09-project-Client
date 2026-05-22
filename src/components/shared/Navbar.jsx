@@ -7,6 +7,15 @@ import { authClient } from "@/lib/auth-client";
 import { Avatar, Button } from "@heroui/react";
 
 const Navbar = () => {
+  const protectedLinks = [
+    { href: "/add-room", label: "Add Room" },
+    { href: "/my-listings", label: "My Listings" },
+    { href: "/my-bookings", label: "My Bookings" },
+  ];
+  const publicLinks = [
+    { href: "/", label: "Home" },
+    { href: "/rooms", label: "Rooms" },
+  ];
   const { data: session } = authClient.useSession();
 
   const user = session?.user;
@@ -40,10 +49,25 @@ const Navbar = () => {
             tabIndex="-1"
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-            <NavLink href={"/"}>Home</NavLink>
-            <NavLink href={"/rooms"}>Rooms</NavLink>
-            <NavLink href={"/signin"}>Sign In</NavLink>
-            <NavLink href={"/signup"}>Sign Up</NavLink>
+            {publicLinks.map((link) => (
+              <NavLink key={link.href} href={link.href}>
+                {link.label}
+              </NavLink>
+            ))}
+
+            {user &&
+              protectedLinks.map((link) => (
+                <NavLink key={link.href} href={link.href}>
+                  {link.label}
+                </NavLink>
+              ))}
+
+            {!user && (
+              <>
+                <NavLink href={"/signin"}>Sign In</NavLink>
+                <NavLink href={"/signup"}>Sign Up</NavLink>
+              </>
+            )}
           </ul>
         </div>
         <Link href={"/"} className="btn btn-ghost text-xl">
@@ -52,11 +76,20 @@ const Navbar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <NavLink href={"/"}>Home</NavLink>
-          <NavLink href={"/rooms"}>Rooms</NavLink>
-          <NavLink href={"/add-room"}>Add Room</NavLink>
-          <NavLink href={"/my-listings"}>My Listings</NavLink>
-          <NavLink href={"/my-bookings"}>My Bookings</NavLink>
+          <ul className="menu menu-horizontal px-1">
+            {publicLinks.map((link) => (
+              <NavLink key={link.href} href={link.href}>
+                {link.label}
+              </NavLink>
+            ))}
+
+            {user &&
+              protectedLinks.map((link) => (
+                <NavLink key={link.href} href={link.href}>
+                  {link.label}
+                </NavLink>
+              ))}
+          </ul>
         </ul>
       </div>
       <div className="navbar-end gap-3 hidden lg:flex items-center">
