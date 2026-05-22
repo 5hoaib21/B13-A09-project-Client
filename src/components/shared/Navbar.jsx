@@ -19,6 +19,7 @@ const Navbar = () => {
   const { data: session } = authClient.useSession();
 
   const user = session?.user;
+  console.log(user, "user from navbar");
 
   const handleSignOut = async () => {
     await authClient.signOut();
@@ -95,15 +96,16 @@ const Navbar = () => {
       <div className="navbar-end gap-3 hidden lg:flex items-center">
         {user ? (
           <>
-            <li>
+            <li className="flex flex-row-reverse items-center gap-3">
               <Avatar>
                 <Avatar.Image
                   referrerPolicy="no-referrer"
-                  alt="John Doe"
+                  alt={user?.name}
                   src={user?.image}
                 />
-                <Avatar.Fallback>{user?.name[0]}</Avatar.Fallback>
+                <Avatar.Fallback>{user?.name}</Avatar.Fallback>
               </Avatar>
+              <span className="font-medium">{user?.name}</span>
             </li>
             <li>
               <Button variant="danger" onClick={handleSignOut}>
