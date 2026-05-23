@@ -1,9 +1,11 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 export function BookingModal({ setOpen, room }) {
+  const router = useRouter();
   const { data: session } = authClient.useSession();
 
   const user = session?.user;
@@ -47,7 +49,7 @@ export function BookingModal({ setOpen, room }) {
       totalCost,
       status: "confirmed",
     };
-    const res = await fetch(`http://localhost:8008/booking`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -56,8 +58,9 @@ export function BookingModal({ setOpen, room }) {
     });
     const data = await res.json();
     toast.success("successfully booked your room");
-
     setOpen(false);
+
+    router.push("/my-bookings");
   };
 
   return (

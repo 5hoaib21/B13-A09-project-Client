@@ -22,11 +22,11 @@ const Footer = () => {
               Subscribe for exclusive travel deals and inspiration.
             </p>
 
-            <div className="flex items-center bg-gray-800 px-4 py-3">
+            <div className="flex shadow-xl items-center bg-orange-300 px-4 py-3">
               <input
                 type="email"
                 placeholder="Enter email"
-                className="bg-transparent outline-none flex-1 text-sm"
+                className="bg-transparent text-white outline-none flex-1 text-sm"
               />
               <span className="text-white text-lg">↗</span>
             </div>

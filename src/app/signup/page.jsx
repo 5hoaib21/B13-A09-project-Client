@@ -15,6 +15,7 @@ import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const SignUpPage = () => {
   const onSubmit = async (e) => {
@@ -30,21 +31,21 @@ const SignUpPage = () => {
       name: user.name,
       image: user.image,
     });
-    if(data) {
-      alert('success')
-      redirect('/')
+    if (data) {
+      toast.success("Sign up successful");
+      redirect("/");
     }
-    if(error){
-      alert('error')
+    if (error) {
+      toast.error(error.message);
     }
     // console.log({data, error});
   };
 
-   const handleGoogleSignin = async () => {
+  const handleGoogleSignin = async () => {
     await authClient.signIn.social({
-      provider: 'google',
-    })
-   } 
+      provider: "google",
+    });
+  };
 
   return (
     <div className="w-5/12 mx-auto my-20">
@@ -107,22 +108,27 @@ const SignUpPage = () => {
             </Button>
           </div>
         </Form>
-         <div className="text-center">
-                 <h2>I already have an account! <Link href={'/signin'}>
-                 login</Link></h2>
-               </div>
-           <Button onClick={handleGoogleSignin} className="w-full" variant="tertiary">
-                <Icon icon="devicon:google" />
-                Sign in with Google
-              </Button>
-              <Button isDisabled className="w-full" variant="tertiary">
-                <Icon icon="mdi:github" />
-                Sign in with GitHub
-              </Button>
-              <Button isDisabled className="w-full" variant="tertiary">
-                <Icon icon="ion:logo-apple" />
-                Sign in with Apple
-              </Button>
+        <div className="text-center">
+          <h2>
+            I already have an account! <Link href={"/signin"}>login</Link>
+          </h2>
+        </div>
+        <Button
+          onClick={handleGoogleSignin}
+          className="w-full"
+          variant="tertiary"
+        >
+          <Icon icon="devicon:google" />
+          Sign in with Google
+        </Button>
+        <Button isDisabled className="w-full" variant="tertiary">
+          <Icon icon="mdi:github" />
+          Sign in with GitHub
+        </Button>
+        <Button isDisabled className="w-full" variant="tertiary">
+          <Icon icon="ion:logo-apple" />
+          Sign in with Apple
+        </Button>
       </Card>
     </div>
   );

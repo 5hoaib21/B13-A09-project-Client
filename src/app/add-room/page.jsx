@@ -28,7 +28,7 @@ const AddRoomPage = () => {
 
     const { data: tokenData } = await authClient.token();
 
-    const res = await fetch("http://localhost:8008/room", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/room`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -45,144 +45,162 @@ const AddRoomPage = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto my-10">
-      <div className="space-y-2 mb-5">
-        {" "}
-        <h1 className="text-4xl font-bold">Add a New Room</h1>
-        <p className="text-sm text-zinc-400">
-          Share your study room with others. You can edit or remove it any time.
-        </p>
-      </div>
-      <form
-        onSubmit={onSubmit}
-        className="w-full max-w-5xl rounded-[28px] border border-[#1f3a33] bg-[#071411] p-4 sm:p-6 md:p-8 lg:p-10 text-white shadow-2xl space-y-6"
-      >
-        {/* Room Name */}
-        <div>
-          <label className="block mb-2 font-semibold text-sm md:text-base">
-            Room Name
-          </label>
+    <div className="relative overflow-hidden py-12 px-4">
+      {/* Background Glow */}
+      <div className="absolute top-0 left-0 h-72 w-72 rounded-full bg-orange-200/30 blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-amber-200/30 blur-3xl"></div>
 
-          <input
-            placeholder="room name"
-            type="text"
-            name="room_name"
-            className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
-          />
+      <div className="relative z-10 max-w-5xl mx-auto">
+        {/* Heading */}
+        <div className="space-y-3 mb-8">
+          <span className="inline-block rounded-full border border-orange-200 bg-orange-50 px-4 py-1 text-sm font-medium text-orange-500">
+            StudyNook
+          </span>
+
+          <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
+            Add a New Room
+          </h1>
+
+          <p className="max-w-2xl text-sm md:text-base leading-7 text-zinc-500">
+            Share your study room with others. You can edit or remove it any
+            time.
+          </p>
         </div>
 
-        {/* Description */}
-        <div>
-          <label className="block mb-2 font-semibold text-sm md:text-base">
-            Description
-          </label>
-
-          <textarea
-            name="description"
-            rows="5"
-            className="w-full p-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition resize-none text-sm md:text-base"
-          ></textarea>
-        </div>
-
-        {/* Image URL */}
-        <div>
-          <label className="block mb-2 font-semibold text-sm md:text-base">
-            Image URL
-          </label>
-
-          <input
-            name="imageUrl"
-            type="text"
-            placeholder="https://..."
-            className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
-          />
-        </div>
-
-        {/* Grid Inputs */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Floor */}
-          <div>
-            <label className="block mb-2 font-semibold text-sm md:text-base">
-              Floor
-            </label>
-
-            <input
-              name="floor"
-              type="text"
-              placeholder="e.g. 3rd Floor"
-              className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
-            />
-          </div>
-
-          {/* Capacity */}
-          <div>
-            <label className="block mb-2 font-semibold text-sm md:text-base">
-              Capacity
-            </label>
-
-            <input
-              name="capacity"
-              type="number"
-              defaultValue="2"
-              className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
-            />
-          </div>
-
-          {/* Hourly Rate */}
-          <div>
-            <label className="block mb-2 font-semibold text-sm md:text-base">
-              Hourly Rate ($)
-            </label>
-
-            <input
-              name="rent"
-              type="number"
-              defaultValue="9"
-              className="w-full h-11 sm:h-12 px-4 rounded-xl bg-[#02100d] border border-[#1f3a33] outline-none focus:border-[#d8a23c] transition text-sm md:text-base"
-            />
-          </div>
-        </div>
-
-        {/* Amenities */}
-        <div>
-          <label className="block mb-4 font-semibold text-sm md:text-base">
-            Amenities
-          </label>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {[
-              "Whiteboard",
-              "Projector",
-              "Wi-Fi",
-              "Power Outlets",
-              "Quiet Zone",
-              "Air Conditioning",
-            ].map((item, idx) => (
-              <label
-                key={idx}
-                className="flex items-center gap-3 px-4 py-3 rounded-xl border border-[#1f3a33] bg-[#071411] cursor-pointer hover:border-[#d8a23c] transition"
-              >
-                <input
-                  name="amenities"
-                  value={item}
-                  type="checkbox"
-                  className="w-4 h-4 accent-[#d8a23c]"
-                />
-
-                <span className="text-sm md:text-base">{item}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-
-        {/* Button */}
-        <button
-          type="submit"
-          className="cursor-pointer w-full sm:w-auto px-6 py-3 rounded-xl bg-[#d8a23c] text-black font-semibold hover:opacity-90 transition text-sm md:text-base"
+        {/* Form */}
+        <form
+          onSubmit={onSubmit}
+          className="rounded-[32px] border border-orange-100 bg-white/80 backdrop-blur-xl p-5 sm:p-7 md:p-10 shadow-[0_20px_80px_rgba(255,190,120,0.15)] space-y-7"
         >
-          Publish Room
-        </button>
-      </form>
+          {/* Room Name */}
+          <div>
+            <label className="block mb-2 font-semibold text-gray-700 text-sm md:text-base">
+              Room Name
+            </label>
+
+            <input
+              placeholder="room name"
+              type="text"
+              name="room_name"
+              className="w-full h-12 px-4 rounded-2xl bg-white border border-orange-100 outline-none focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition text-sm md:text-base text-gray-700"
+            />
+          </div>
+
+          {/* Description */}
+          <div>
+            <label className="block mb-2 font-semibold text-gray-700 text-sm md:text-base">
+              Description
+            </label>
+
+            <textarea
+              name="description"
+              rows="5"
+              className="w-full p-4 rounded-2xl bg-white border border-orange-100 outline-none focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition resize-none text-sm md:text-base text-gray-700"
+            ></textarea>
+          </div>
+
+          {/* Image URL */}
+          <div>
+            <label className="block mb-2 font-semibold text-gray-700 text-sm md:text-base">
+              Image URL
+            </label>
+
+            <input
+              name="imageUrl"
+              type="text"
+              placeholder="https://..."
+              className="w-full h-12 px-4 rounded-2xl bg-white border border-orange-100 outline-none focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition text-sm md:text-base text-gray-700"
+            />
+          </div>
+
+          {/* Grid Inputs */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {/* Floor */}
+            <div>
+              <label className="block mb-2 font-semibold text-gray-700 text-sm md:text-base">
+                Floor
+              </label>
+
+              <input
+                name="floor"
+                type="text"
+                placeholder="e.g. 3rd Floor"
+                className="w-full h-12 px-4 rounded-2xl bg-white border border-orange-100 outline-none focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition text-sm md:text-base text-gray-700"
+              />
+            </div>
+
+            {/* Capacity */}
+            <div>
+              <label className="block mb-2 font-semibold text-gray-700 text-sm md:text-base">
+                Capacity
+              </label>
+
+              <input
+                name="capacity"
+                type="number"
+                defaultValue="2"
+                className="w-full h-12 px-4 rounded-2xl bg-white border border-orange-100 outline-none focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition text-sm md:text-base text-gray-700"
+              />
+            </div>
+
+            {/* Hourly Rate */}
+            <div>
+              <label className="block mb-2 font-semibold text-gray-700 text-sm md:text-base">
+                Hourly Rate ($)
+              </label>
+
+              <input
+                name="rent"
+                type="number"
+                defaultValue="9"
+                className="w-full h-12 px-4 rounded-2xl bg-white border border-orange-100 outline-none focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition text-sm md:text-base text-gray-700"
+              />
+            </div>
+          </div>
+
+          {/* Amenities */}
+          <div>
+            <label className="block mb-4 font-semibold text-gray-700 text-sm md:text-base">
+              Amenities
+            </label>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                "Whiteboard",
+                "Projector",
+                "Wi-Fi",
+                "Power Outlets",
+                "Quiet Zone",
+                "Air Conditioning",
+              ].map((item, idx) => (
+                <label
+                  key={idx}
+                  className="flex items-center gap-3 rounded-2xl border border-orange-100 bg-white px-4 py-4 cursor-pointer transition-all duration-300 hover:border-orange-300 hover:shadow-md"
+                >
+                  <input
+                    name="amenities"
+                    value={item}
+                    type="checkbox"
+                    className="h-4 w-4 accent-orange-400"
+                  />
+
+                  <span className="text-sm md:text-base text-gray-700">
+                    {item}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Button */}
+          <button
+            type="submit"
+            className="cursor-pointer w-full sm:w-auto rounded-2xl bg-gradient-to-r from-orange-400 to-amber-300 px-8 py-4 text-sm md:text-base font-semibold text-white shadow-lg shadow-orange-200 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+          >
+            Publish Room
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

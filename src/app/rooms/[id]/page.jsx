@@ -7,6 +7,7 @@ import { DeleteAlert } from "@/components/ui/DeleteAlert";
 import BookRoomButton from "@/components/ui/BookRoomButton";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
+import { Chip } from "@heroui/react";
 
 const RoomDetailsPage = async ({ params }) => {
   const session = await auth.api.getSession({
@@ -20,7 +21,7 @@ const RoomDetailsPage = async ({ params }) => {
   });
   // console.log(token);
 
-  const res = await fetch(`http://localhost:8008/room/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/room/${id}`, {
     headers: {
       authorization: `Bearer ${token}`,
     },
@@ -60,14 +61,14 @@ const RoomDetailsPage = async ({ params }) => {
                     {room?.room_name}
                   </h1>
 
-                  <div className="bg-green-900/30 text-green-400 border border-green-800 px-4 py-2 rounded-full text-sm">
+                  <div className=" text-green-400 border border-green-300 shadow-xl px-4 py-2 rounded-full text-sm">
                     {room?.bookings} bookings
                   </div>
                 </div>
 
                 <p className="mt-2 text-gray-400">Listed {room.listedDate}</p>
 
-                <p className="mt-8 text-lg text-gray-200 leading-relaxed">
+                <p className="mt-8 text-lg text-gray-400 leading-relaxed">
                   {room?.description}
                 </p>
 
@@ -80,12 +81,13 @@ const RoomDetailsPage = async ({ params }) => {
                   <div className="flex flex-wrap gap-3">
                     {Array.isArray(room?.amenities) &&
                       room?.amenities.map((item) => (
-                        <span
+                        <Chip
+                          color="warning"
                           key={item}
-                          className="px-4 py-2 rounded-full bg-white/10 border border-white/10 text-sm"
+                          className="px-4 py-2 rounded-full  border border-white/10 text-sm"
                         >
                           {item}
-                        </span>
+                        </Chip>
                       ))}
                   </div>
                 </div>
@@ -104,7 +106,7 @@ const RoomDetailsPage = async ({ params }) => {
                   <span className="text-gray-400">per hour</span>
                 </div>
 
-                <div className="mt-8 room-y-4 text-gray-200">
+                <div className="mt-8 room-y-4 text-gray-700">
                   <div className="flex items-center gap-3">
                     <Layers3 size={18} />
                     <span>{room.floor}</span>
@@ -133,7 +135,7 @@ const RoomDetailsPage = async ({ params }) => {
               </div>
 
               {/* Host Card */}
-              <div className="rounded-3xl border border-white/10 bg-[#ffffff] p-6 mt-5">
+              <div className="shadow-xl rounded-3xl border border-black/10 bg-[#ffffff] p-6 mt-5">
                 <p className="text-xs tracking-widest uppercase text-gray-500 mb-5">
                   Listed By
                 </p>

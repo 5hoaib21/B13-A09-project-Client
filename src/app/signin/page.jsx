@@ -12,8 +12,9 @@ import {
 } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
-import {Icon} from "@iconify/react";
+import { Icon } from "@iconify/react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const SignInPage = () => {
   const onSubmit = async (e) => {
@@ -26,30 +27,28 @@ const SignInPage = () => {
     const { data, error } = await authClient.signIn.email({
       email: user.email,
       password: user.password,
-  
     });
     // console.log({data, error});
-    if(data) {
-      alert('success')
-      redirect('/')
+    if (data) {
+      toast.success("Sign in successful");
+      redirect("/");
     }
-    if(error){
-      alert(error.message)
+    if (error) {
+      toast.error(error.message);
     }
   };
 
-    const handleGoogleSignin = async () => {
-      await authClient.signIn.social({
-        provider: 'google',
-      })
-     } 
+  const handleGoogleSignin = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  };
 
   return (
     <div className="w-5/12 mx-auto my-20">
-      <h2 className="text-3xl font-bold my-3">Create Your Account!</h2>
+      <h2 className="text-3xl font-bold my-3">Login your Account!</h2>
       <Card className="">
         <Form className="flex  flex-col gap-4" onSubmit={onSubmit}>
-    
           <TextField
             isRequired
             name="email"
@@ -96,21 +95,31 @@ const SignInPage = () => {
             </Button>
           </div>
         </Form>
-         <div className="text-center">
-          <h2>don`t have an account?<Link href={'/signup'}> <span className="text-blue" >register</span></Link></h2>
+        <div className="text-center">
+          <h2>
+            don`t have an account?
+            <Link href={"/signup"}>
+              {" "}
+              <span className="text-blue">register</span>
+            </Link>
+          </h2>
         </div>
-       <Button onClick={handleGoogleSignin} className="w-full" variant="tertiary">
-                <Icon icon="devicon:google" />
-                Sign in with Google
-              </Button>
-      <Button isDisabled className="w-full" variant="tertiary">
-        <Icon icon="mdi:github" />
-        Sign in with GitHub
-      </Button>
-      <Button isDisabled className="w-full" variant="tertiary">
-        <Icon icon="ion:logo-apple" />
-        Sign in with Apple
-      </Button>
+        <Button
+          onClick={handleGoogleSignin}
+          className="w-full"
+          variant="tertiary"
+        >
+          <Icon icon="devicon:google" />
+          Sign in with Google
+        </Button>
+        <Button isDisabled className="w-full" variant="tertiary">
+          <Icon icon="mdi:github" />
+          Sign in with GitHub
+        </Button>
+        <Button isDisabled className="w-full" variant="tertiary">
+          <Icon icon="ion:logo-apple" />
+          Sign in with Apple
+        </Button>
       </Card>
     </div>
   );

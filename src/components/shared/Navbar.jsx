@@ -5,8 +5,11 @@ import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 
 import { Avatar, Button } from "@heroui/react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const router = useRouter();
   const protectedLinks = [
     { href: "/add-room", label: "Add Room" },
     { href: "/my-listings", label: "My Listings" },
@@ -22,6 +25,8 @@ const Navbar = () => {
 
   const handleSignOut = async () => {
     await authClient.signOut();
+    toast.error("Your Session in out");
+    router.refresh();
   };
 
   return (

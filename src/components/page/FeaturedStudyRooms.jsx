@@ -4,7 +4,7 @@ import { Button } from "@heroui/react";
 import Link from "next/link";
 
 const FeaturedStudyRooms = async () => {
-  const res = await fetch(`http://localhost:8008/room`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/room`);
   const rooms = await res.json();
   const featuredRooms = rooms.slice(0, 3);
   // console.log(featuredRooms , 'from featured sectt')

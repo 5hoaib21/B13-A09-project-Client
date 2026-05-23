@@ -12,7 +12,7 @@ export function CancelBooking({ bookingId, bookingStatus }) {
     // if (bookingStatus !== "confirmed") return;
     const { data: tokenData } = await authClient.token();
     const res = await fetch(
-      `http://localhost:8008/booking/${bookingId}/cancel`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${bookingId}/cancel`,
       {
         method: "PATCH",
         headers: {
@@ -23,7 +23,7 @@ export function CancelBooking({ bookingId, bookingStatus }) {
     const data = await res.json();
     // console.log(data, "from cancelled");
     if (data.modifiedCount > 0) {
-      toast.success("Booking cancelled");
+      toast.error("Booking cancelled");
       router.refresh();
     }
   };
