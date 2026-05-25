@@ -20,12 +20,13 @@ const RoomDetailsPage = async ({ params }) => {
   const user = session?.user;
   const { id } = await params;
 
-  const { token } = await auth.api.getToken({
-    headers: await headers(),
-  });
+  // const { token } = await auth.api.getToken({
+  //   headers: await headers(),
+  // });
   // console.log(token);
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/room/${id}`);
+  // console.log(res, "res from detail page");
   const room = await res.json();
   // console.log(room, "room");
   return (
