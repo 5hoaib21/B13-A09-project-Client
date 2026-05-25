@@ -71,3 +71,9 @@ The main goal of **Study Nook** is to help students find and book peaceful study
 ```bash
 git clone https://github.com/5hoaib21/B13-A09-project-Client.git
 ```
+
+### 2. Installation
+
+```bash
+npm i
+```
