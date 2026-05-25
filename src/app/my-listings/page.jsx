@@ -44,7 +44,7 @@ const MyListingPage = async () => {
         {bookings.length === 0 && (
           <div className="h-[50vh] flex justify-center items-center flex-col gap-4">
             <h2 className="font-bold text-4xl text-[#ffb86a]">
-              Do not have a room
+              Do not have a room ?
             </h2>
             <Link href={"/add-room"}>
               <button
