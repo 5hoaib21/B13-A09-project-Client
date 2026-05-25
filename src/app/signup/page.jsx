@@ -32,8 +32,8 @@ const SignUpPage = () => {
       image: user.image,
     });
     if (data) {
-      toast.success("Sign up successful");
-      redirect("/");
+      toast.success("Sign up successful! Please Sign in");
+      redirect("/signin");
     }
     if (error) {
       toast.error(error.message);

@@ -26,7 +26,7 @@ const Navbar = () => {
   const handleSignOut = async () => {
     await authClient.signOut();
     toast.error("Your Session in out");
-    router.refresh();
+    router.push("/");
   };
 
   return (
