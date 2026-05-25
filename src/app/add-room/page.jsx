@@ -3,6 +3,10 @@ import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
 
+// export const metadata = {
+//   title: "Add Room | StudyNook",
+// };
+
 const AddRoomPage = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
@@ -57,7 +61,7 @@ const AddRoomPage = () => {
             StudyNook
           </span>
 
-          <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-extrabold bg-linear-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
             Add a New Room
           </h1>
 
@@ -195,7 +199,7 @@ const AddRoomPage = () => {
           {/* Button */}
           <button
             type="submit"
-            className="cursor-pointer w-full sm:w-auto rounded-2xl bg-gradient-to-r from-orange-400 to-amber-300 px-8 py-4 text-sm md:text-base font-semibold text-white shadow-lg shadow-orange-200 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+            className="cursor-pointer w-full sm:w-auto rounded-2xl bg-linear-to-r from-orange-400 to-amber-300 px-8 py-4 text-sm md:text-base font-semibold text-white shadow-lg shadow-orange-200 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
           >
             Publish Room
           </button>

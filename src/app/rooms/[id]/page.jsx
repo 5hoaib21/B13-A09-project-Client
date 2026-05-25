@@ -9,6 +9,10 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import { Chip } from "@heroui/react";
 
+export const metadata = {
+  title: "Room Details | StudyNook",
+};
+
 const RoomDetailsPage = async ({ params }) => {
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -21,11 +25,7 @@ const RoomDetailsPage = async ({ params }) => {
   });
   // console.log(token);
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/room/${id}`, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/room/${id}`);
   const room = await res.json();
   // console.log(room, "room");
   return (

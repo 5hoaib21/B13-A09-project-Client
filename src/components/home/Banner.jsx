@@ -2,6 +2,7 @@ import { CiPlay1 } from "react-icons/ci";
 import BannerImage from "../../../public/assets/banner.jpg";
 import Image from "next/image";
 import Link from "next/link";
+import { MdExplore } from "react-icons/md";
 
 const Banner = () => {
   return (
@@ -39,14 +40,15 @@ const Banner = () => {
               <span>→</span>
             </button> */}
               <button
-                className="relative cursor-pointer px-6 py-2 text-lg font-semibold text-[#c1a362] border-2 border-[#c1a362] rounded-[34px] bg-transparent overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] 
+                className="flex items-center gap-3  relative cursor-pointer px-6 py-2 text-lg font-semibold text-[#c1a362] border-2 border-[#c1a362] rounded-[34px] bg-transparent overflow-hidden transition-all duration-300 ease-out-quint
   hover:text-[#212121] hover:scale-110 hover:shadow-[0_0px_20px_rgba(193,163,98,0.4)]
   active:scale-100
-  before:content-[''] before:absolute before:inset-0 before:m-auto before:w-[50px] before:h-[50px] before:rounded-[34px]
+  before:content-[''] before:absolute before:inset-0 before:m-auto before:w-12.5 before:h-12.5 before:rounded-[34px]
   before:bg-[#c1a362] before:scale-0 before:-z-10
-  before:transition-all before:duration-700 before:ease-[cubic-bezier(0.23,1,0.32,1)]
+  before:transition-all before:duration-700 before:ease-out-quint
   hover:before:scale-[3]"
               >
+                <MdExplore />
                 Explore More
               </button>
             </Link>
@@ -70,7 +72,7 @@ const Banner = () => {
           </div>
         </div>
       </section>
-      <div className="mt-10 grid grid-cols-3 gap-20 border-t border-[#434843]/10 pt-10">
+      {/* <div className="mt-10 grid grid-cols-3 gap-20 border-t border-[#434843]/10 pt-10">
         <div className="flex flex-col gap-1">
           <span className="text-3xl font-bold text-[#d2e8d7]">120+</span>
 
@@ -88,7 +90,7 @@ const Banner = () => {
 
           <span className="text-sm text-[#c3c8c1]">Avg. rating</span>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
