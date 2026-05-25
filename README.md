@@ -69,5 +69,5 @@ The main goal of **Study Nook** is to help students find and book peaceful study
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/study-nook.git
+git clone https://github.com/5hoaib21/B13-A09-project-Client.git
 ```
