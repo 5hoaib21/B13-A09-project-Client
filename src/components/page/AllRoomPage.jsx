@@ -1,31 +1,62 @@
 "use client";
 
 import AllStudyRooms from "@/components/page/AllStudyRooms";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const AllRoomPage = ({ initialRooms }) => {
   const [search, setSearch] = useState("");
   const [amenity, setAmenity] = useState("");
   const [price, setPrice] = useState("");
+  const [rooms, setRooms] = useState(initialRooms);
 
-  const filteredRooms = useMemo(() => {
-    return initialRooms.filter((room) => {
-      // Search filter
-      const matchSearch = room.room_name
-        ?.toLowerCase()
-        .includes(search.toLowerCase());
+  useEffect(() => {
+    const controller = new AbortController();
 
-      // Amenity filter
-      const matchAmenity = amenity ? room.amenities?.includes(amenity) : true;
+    const loadRooms = async () => {
+      const params = new URLSearchParams();
 
-      // Price filter
-      let matchPrice = true;
-      if (price === "low") matchPrice = room.rent <= 10;
-      if (price === "mid") matchPrice = room.rent > 10 && room.rent <= 25;
-      if (price === "high") matchPrice = room.rent > 25;
+      if (search.trim()) {
+        params.set("search", search.trim());
+      }
 
-      return matchSearch && matchAmenity && matchPrice;
+      if (amenity) {
+        params.set("amenity", amenity);
+      }
+
+      if (price === "low") {
+        params.set("minRent", "0");
+        params.set("maxRent", "10");
+      }
+
+      if (price === "mid") {
+        params.set("minRent", "10");
+        params.set("maxRent", "25");
+      }
+
+      if (price === "high") {
+        params.set("minRent", "25");
+      }
+
+      const query = params.toString();
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/room${query ? `?${query}` : ""}`,
+        {
+          cache: "no-store",
+          signal: controller.signal,
+        },
+      );
+
+      const data = await res.json();
+      setRooms(data);
+    };
+
+    loadRooms().catch((error) => {
+      if (error.name !== "AbortError") {
+        setRooms(initialRooms);
+      }
     });
+
+    return () => controller.abort();
   }, [search, amenity, price, initialRooms]);
 
   return (
@@ -78,7 +109,7 @@ const AllRoomPage = ({ initialRooms }) => {
 
       {/* GRID */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch mb-10">
-        {filteredRooms.map((room) => (
+        {rooms.map((room) => (
           <AllStudyRooms room={room} key={room._id} />
         ))}
       </div>

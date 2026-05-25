@@ -10,7 +10,7 @@ export function BookingModal({ setOpen, room }) {
 
   const user = session?.user;
 
-  const roomRate = room.rent;
+  const roomRate = room?.rent;
 
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [startTime, setStartTime] = useState("09:00");
@@ -29,11 +29,17 @@ export function BookingModal({ setOpen, room }) {
 
     return 0;
   };
-
   const totalCost = calculateTotalCost();
 
   const handleConfirm = async (e) => {
     e.preventDefault();
+
+    const totalCost = calculateTotalCost();
+
+    if (totalCost <= 0) {
+      toast.error("End time must be after start time");
+      return;
+    }
 
     const bookingData = {
       // userId = user.id,
@@ -42,7 +48,7 @@ export function BookingModal({ setOpen, room }) {
       userName: user?.name,
       roomId: room?._id,
       roomName: room?.room_name,
-      date: new Date(date),
+      date,
       startTime,
       endTime,
       specialNote,
@@ -57,9 +63,15 @@ export function BookingModal({ setOpen, room }) {
       body: JSON.stringify(bookingData),
     });
     const data = await res.json();
+    // console.log(data, "data");
+
+    if (!res.ok) {
+      toast.error(data.message || "Booking failed");
+      return;
+    }
+
     toast.success("successfully booked your room");
     setOpen(false);
-
     router.push("/my-bookings");
   };
 
