@@ -12,7 +12,7 @@ A modern and user-friendly **study room booking platform** where students can ea
 ## 🚀 Live Demo
 
 Check out the live project here:  
-👉 https://b13-a08-project.vercel.app
+👉 https://study-nook-ten.vercel.app
 
 ---
 
